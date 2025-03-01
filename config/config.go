@@ -12,6 +12,9 @@ type Config struct {
 	VkToken          string
 	VkUserID         string
 	CodeforcesHandle string
+	Port             string
+	AppUrl           string
+	ReactPort        string
 }
 
 func LoadConfig() Config {
@@ -24,5 +27,8 @@ func LoadConfig() Config {
 		VkToken:          os.Getenv("VK_KEY"),
 		VkUserID:         os.Getenv("VK_USER_ID"),
 		CodeforcesHandle: os.Getenv("CODEFORCES_HANDLE"),
+		Port:             os.Getenv("PORT"),
+		AppUrl:           os.Getenv("APP_URL"),
+		ReactPort:        os.Getenv("REACT_PORT"),
 	}
 }
