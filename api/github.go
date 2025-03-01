@@ -8,9 +8,9 @@ import (
 )
 
 type GithubUser struct {
-	Login string `json:"login"`
-	Name  string `json:"name"`
-	Email string `json:"email"`
+	Login      string `json:"login"`
+	ReposCount int    `json:"public_repos"`
+	LastUpdate string `json:"updated_at"`
 }
 
 func GetGithubUser(username string) (string, error) {
@@ -36,15 +36,7 @@ func GetGithubUser(username string) (string, error) {
 		return "", fmt.Errorf("ошибка парсинга JSON: %v", err)
 	}
 
-	if user.Name == "" {
-		user.Name = user.Login
-	}
-
-	if user.Email == "" {
-		user.Email = "Не указан"
-	}
-
-	result := fmt.Sprintf("%s (%s) Email: %s", user.Name, user.Login, user.Email)
+	result := fmt.Sprintf("Nickname: %s, Public repositories: %d, Last updated at: %s", user.Login, user.ReposCount, user.LastUpdate)
 
 	return result, nil
 }
