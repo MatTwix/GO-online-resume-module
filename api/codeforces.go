@@ -10,13 +10,8 @@ import (
 type CodeforcesResponse struct {
 	Status string `json:"status"`
 	Result []struct {
-		Handle    string `json:"handle"`
-		FirstName string `json:"firstName"`
-		LastName  string `json:"lastName"`
-		Rating    int    `json:"rating"`
-		MaxRating int    `json:"maxRating"`
-		Rank      string `json:"rank"`
-		MaxRank   string `json:"maxRank"`
+		Handle         string `json:"handle"`
+		LastOnlineTime int    `json:"lastOnlineTimeSeconds"`
 	} `json:"result"`
 }
 
@@ -48,6 +43,6 @@ func GetCodeforcesUser(handle string) (string, error) {
 	}
 
 	user := result.Result[0]
-	return fmt.Sprintf("%s %s (@%s), рейтинг: %d (макс: %d), звание: %s (макс: %s)",
-		user.FirstName, user.LastName, user.Handle, user.Rating, user.MaxRating, user.Rank, user.MaxRank), nil
+	res := fmt.Sprintf("Nickname: %s, Was online at(seconds): %d", user.Handle, user.LastOnlineTime)
+	return res, nil
 }
