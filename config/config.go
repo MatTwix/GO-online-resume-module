@@ -15,20 +15,29 @@ type Config struct {
 	Port             string
 	AppUrl           string
 	ReactPort        string
+	ENV              string
 }
 
 func LoadConfig() Config {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Ошибка загрузки .env файла")
+	if os.Getenv("ENV") != "production" {
+		if err := godotenv.Load(); err != nil {
+			log.Fatal("Ошибка загрузки .env файла")
+		}
 	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+
 	return Config{
+		Port:             port,
 		GithubName:       os.Getenv("GITHUB_NAME"),
 		VkToken:          os.Getenv("VK_KEY"),
 		VkUserID:         os.Getenv("VK_USER_ID"),
 		CodeforcesHandle: os.Getenv("CODEFORCES_HANDLE"),
-		Port:             os.Getenv("PORT"),
 		AppUrl:           os.Getenv("APP_URL"),
 		ReactPort:        os.Getenv("REACT_PORT"),
+		ENV:              os.Getenv("ENV"),
 	}
 }
