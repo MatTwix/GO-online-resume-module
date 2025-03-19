@@ -14,7 +14,7 @@ var lastUpdatedAt string = time.Now().String()
 func GetResume(c fiber.Ctx) error {
 	cfg := config.LoadConfig()
 
-	githubUser, err := api.GetGithubUser(cfg.GithubName)
+	githubUser, err := api.GetGithubUser(cfg.GithubName, cfg.GithubToken)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Ошибка получения данных GitHub:" + err.Error()})
 	}

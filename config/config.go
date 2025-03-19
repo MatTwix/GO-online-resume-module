@@ -16,6 +16,7 @@ type Config struct {
 	AppUrl           string
 	ReactPort        string
 	ENV              string
+	GithubToken      string
 }
 
 func LoadConfig() Config {
@@ -33,6 +34,7 @@ func LoadConfig() Config {
 	return Config{
 		Port:             port,
 		GithubName:       os.Getenv("GITHUB_NAME"),
+		GithubToken:      os.Getenv("GITHUB_TOKEN"),
 		VkToken:          os.Getenv("VK_KEY"),
 		VkUserID:         os.Getenv("VK_USER_ID"),
 		CodeforcesHandle: os.Getenv("CODEFORCES_HANDLE"),

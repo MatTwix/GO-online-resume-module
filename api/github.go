@@ -13,12 +13,21 @@ type GithubUser struct {
 	LastUpdate string `json:"updated_at"`
 }
 
-func GetGithubUser(username string) (string, error) {
+func GetGithubUser(username, githubToken string) (string, error) {
+	client := &http.Client{}
 	url := fmt.Sprintf("https://api.github.com/users/%s", username)
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", fmt.Errorf("ошибка создания запроса к GitHub: %v", err)
+	}
+
+	req.Header.Add("Authorization", "token "+githubToken)
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return "", fmt.Errorf("ошибка запроса к GitHub: %v", err)
 	}
+
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
