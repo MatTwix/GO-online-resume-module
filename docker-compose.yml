@@ -1,0 +1,16 @@
+version: '3.9'  #Версия Docker Compose
+
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT:-3000}:3000"  #Пробрасываем порт из переменной окружения
+    env_file:
+      - .env  #Подключаем переменные окружения, если есть конфигурационный файл
+    restart: unless-stopped  #Автоматический рестарт при ошибке
+    networks:
+      - app_network  #Общая сеть для сервисов
+
+networks:
+  app_network:
+    driver: bridge #Отдельная сеть для сервисов
