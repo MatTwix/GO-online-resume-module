@@ -13,7 +13,6 @@ RUN npm run build
 
 #Используем Go 1.23 на базе Alpine в качестве промежуточного контейнера для сборки бэкенда
 FROM golang:1.23-alpine AS server-builder
-
 #Устанавливаем рабочую директорию
 WORKDIR /app
 #Копируем файлы go.mod и go.sum для загрузки необходимых библиотек Go
