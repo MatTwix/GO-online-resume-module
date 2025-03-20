@@ -45,7 +45,8 @@ tmp/
 *.out  
 
 # 🎨 Директории и файлы редакторов  
-.vscode/*  
+/.vscode/*  
+/.devcontainer/*
 !.vscode/extensions.json  
 .idea  
 *.suo  
