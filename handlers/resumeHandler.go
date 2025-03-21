@@ -24,16 +24,16 @@ func GetResume(c fiber.Ctx) error {
 		return c.Status(500).JSON(fiber.Map{"error": "Ошибка получения данных VK:" + err.Error()})
 	}
 
-	// codeforcesUser, err := api.GetCodeforcesUser(cfg.CodeforcesHandle)
-	// if err != nil {
-	// 	return c.Status(500).JSON(fiber.Map{"error": "Ошибка получения данных Codeforces:" + err.Error()})
-	// }
+	codeforcesUser, err := api.GetCodeforcesUser(cfg.CodeforcesHandle)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Ошибка получения данных Codeforces:" + err.Error()})
+	}
 
 	var resume models.Resume
 
 	resume.GitHubStats = githubUser
 	resume.VkStats = vkUser
-	resume.CodeforcesStats = "Codeforces чет прилег поспать, поэтому даннвых из моего пустого профиля не будет(" //resume.CodeforcesStats = codeforcesUser
+	resume.CodeforcesStats = codeforcesUser
 	resume.UpdatedAt = lastUpdatedAt
 
 	return c.JSON(resume)
